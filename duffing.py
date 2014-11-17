@@ -77,35 +77,35 @@ def main():
     T0 = 0.0
     try:
 	k = float(raw_input("k: [%s]" % k))
-    except: 
+    except:
 	pass
     try:
 	A = float(raw_input("A: [%s]" % A))
-    except: 
+    except:
 	pass
     try:
 	B = float(raw_input("B: [%s]" % B))
-    except: 
+    except:
 	pass
     try:
 	R = float(raw_input("R: [%s]" % R))
-    except: 
+    except:
 	pass
     try:
 	w = float(raw_input("w: [%s]" % w))
-    except: 
+    except:
 	pass
     try:
 	X0 = float(raw_input("X0: [%s]" % X0))
-    except: 
+    except:
 	pass
     try:
 	V0 = float(raw_input("V0: [%s]" % V0))
-    except: 
+    except:
 	pass
     try:
 	T0 = float(raw_input("T0: [%s]" % T0))
-    except: 
+    except:
 	pass
     duffing = Duffing(k=k, A=A, B=B, R=R, w=w, X0=X0, V0=V0, T0=T0)
     for n in xrange(10000):
@@ -114,6 +114,8 @@ def main():
         print "t = %sT" % periods
         if periods > 10:
             plt.plot(xn,vn, "bo")
+    plt.xlabel("x")
+    plt.ylabel("v")
     plt.savefig("duffing-k=%s-A=%s-B=%s-R=%s-w=%s-X0=%s-V0=%s-T0=%s.png" % (k, A, B, R, w, X0, V0, T0))
 
 if __name__ == "__main__":
