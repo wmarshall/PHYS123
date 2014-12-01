@@ -71,10 +71,12 @@ def main():
     A = 4.0
     B = 0.154
     R = 0.1
+    dR = 0.0001
     w = 1.2199778
     X0 = 0.1
     V0 = 0.1
     T0 = 0.0
+    plots = 1
     try:
 	k = float(raw_input("k: [%s]" % k))
     except:
@@ -89,6 +91,14 @@ def main():
 	pass
     try:
 	R = float(raw_input("R: [%s]" % R))
+    except:
+	pass
+    try:
+	dR = float(raw_input("dR: [%s]" % dR))
+    except:
+	pass
+    try:
+	plots = int(raw_input("plots: [%s]" % plots))
     except:
 	pass
     try:
@@ -107,16 +117,19 @@ def main():
 	T0 = float(raw_input("T0: [%s]" % T0))
     except:
 	pass
-    duffing = Duffing(k=k, A=A, B=B, R=R, w=w, X0=X0, V0=V0, T0=T0)
-    for n in xrange(10000):
-        tn, xn, vn = duffing.do_iter()
-        periods = tn/duffing.period
-        print "t = %sT" % periods
-        if periods > 10:
-            plt.plot(xn,vn, "bo")
-    plt.xlabel("x")
-    plt.ylabel("v")
-    plt.savefig("duffing-k=%s-A=%s-B=%s-R=%s-w=%s-X0=%s-V0=%s-T0=%s.png" % (k, A, B, R, w, X0, V0, T0))
+    for i in xrange(plots):
+	plt.clf()
+	duffing = Duffing(k=k, A=A, B=B, R=R, w=w, X0=X0, V0=V0, T0=T0)
+	for n in xrange(500* 100):
+	    tn, xn, vn = duffing.do_iter()
+	    periods = tn/duffing.period
+	    print "t = %sT, R = %s" % (periods, R)
+	    if periods > 90:
+		plt.plot(xn,vn, "bo", markersize = 1)
+	plt.xlabel("x")
+	plt.ylabel("v")
+	plt.savefig("duffing-k=%.3f-A=%.3f-B=%.3f-R=%.6f-w=%.3f-X0=%.3f-V0=%.3f-T0=%.3f.svg" % (k, A, B, R, w, X0, V0, T0))
+	R+=dR
 
 if __name__ == "__main__":
     main()
